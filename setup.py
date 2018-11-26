@@ -53,5 +53,6 @@ setuptools.setup(
         'Topic :: Software Development :: Libraries :: Python Modules'],
     test_suite='nose.collector',
     tests_require=read_requirements('testing.txt'),
+    python_requires='>=3.5',
     zip_safe=True
 )
