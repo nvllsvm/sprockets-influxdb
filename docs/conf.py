@@ -26,5 +26,5 @@ pygments_style = 'sphinx'
 todo_include_todos = False
 html_static_path = ['_static']
 htmlhelp_basename = 'sprockets-influxdbdoc'
-intersphinx_mapping = {'python': 'https://docs.python.org/3/',
-                       'tornado': 'https://www.tornadoweb.org/en/stable/'}
+intersphinx_mapping = {'python': ('https://docs.python.org/3/', None),
+                       'tornado': ('https://www.tornadoweb.org/en/stable/', None)}
