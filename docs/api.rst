@@ -102,10 +102,8 @@ Configuration Methods
 
 .. autofunction:: sprockets_influxdb.set_auth_credentials
 .. autofunction:: sprockets_influxdb.set_base_url
-.. autofunction:: sprockets_influxdb.set_io_loop
 .. autofunction:: sprockets_influxdb.set_max_batch_size
 .. autofunction:: sprockets_influxdb.set_max_buffer_size
-.. autofunction:: sprockets_influxdb.set_clients
 .. autofunction:: sprockets_influxdb.set_timeout
 .. autofunction:: sprockets_influxdb.set_trigger_size
 
