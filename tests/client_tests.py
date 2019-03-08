@@ -1,6 +1,6 @@
 import base64
 import random
-import mock
+from unittest import mock
 import uuid
 
 from tornado import concurrent, gen, httpclient
@@ -12,7 +12,7 @@ from . import base
 
 class AuthTestCase(base.AsyncServerTestCase):
     def setUp(self):
-        super(AuthTestCase, self).setUp()
+        super().setUp()
         self.username, self.password = str(uuid.uuid4()), str(uuid.uuid4())
         influxdb.set_auth_credentials(self.username, self.password)
 

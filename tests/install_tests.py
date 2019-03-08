@@ -13,7 +13,7 @@ from . import base
 class InstallDefaultsTestCase(base.TestCase):
 
     def setUp(self):
-        super(InstallDefaultsTestCase, self).setUp()
+        super().setUp()
         os.environ['ENVIRONMENT'] = str(uuid.uuid4())
         influxdb.install()
 

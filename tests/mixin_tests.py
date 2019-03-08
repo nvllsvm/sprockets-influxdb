@@ -1,7 +1,7 @@
-import mock
 import socket
 import time
 import unittest
+from unittest import mock
 
 import tornado
 

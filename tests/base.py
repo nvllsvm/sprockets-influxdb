@@ -64,7 +64,7 @@ class AsyncTestCase(testing.AsyncTestCase):
 
     def setUp(self):
         clear_influxdb_module()
-        return super(AsyncTestCase, self).setUp()
+        return super().setUp()
 
 
 class AsyncServerTestCase(testing.AsyncHTTPTestCase):
@@ -72,13 +72,13 @@ class AsyncServerTestCase(testing.AsyncHTTPTestCase):
     def setUp(self):
         clear_influxdb_module()
         self.application = None
-        super(AsyncServerTestCase, self).setUp()
+        super().setUp()
         logging.getLogger(
             AsyncServerTestCase.__module__).setLevel(logging.DEBUG)
         influxdb.install(url=self.get_url('/write'))
 
     def fetch(self, path, **kwargs):
-        result = super(AsyncServerTestCase, self).fetch(path, **kwargs)
+        result = super().fetch(path, **kwargs)
         self.flush()
         return result
 

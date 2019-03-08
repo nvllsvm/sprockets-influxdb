@@ -71,7 +71,7 @@ _warn_threshold = 15000
 _writing = False
 
 
-class InfluxDBMixin(object):
+class InfluxDBMixin:
     """Mixin that automatically submits per-request measurements to InfluxDB
     with the request duration.
 
@@ -95,7 +95,7 @@ class InfluxDBMixin(object):
         self.influxdb = Measurement(
             application.settings[REQUEST_DATABASE],
             application.settings.get('service', 'request'))
-        super(InfluxDBMixin, self).__init__(application, request, **kwargs)
+        super().__init__(application, request, **kwargs)
         if _enabled:
             handler = '{}.{}'.format(self.__module__, self.__class__.__name__)
             self.influxdb.set_tags({'handler': handler,
@@ -791,7 +791,7 @@ def _write_error_batch_wait(future, batch, database, measurement,
     _write_error_batch(batch, database, measurements)
 
 
-class Measurement(object):
+class Measurement:
     """The :class:`Measurement` class represents what will become a single row
     in an InfluxDB database. Measurements are added to InfluxDB via the
     :meth:`~sprockets_influxdb.add_measurement` method.
