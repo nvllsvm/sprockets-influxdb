@@ -3,14 +3,10 @@ language: python
 dist: xenial
 sudo: required
 python:
- - 2.7
- - 3.5
- - 3.6
  - 3.7
 install:
  - sudo apt-get install libgnutls28-dev
  - pip install -r requires/testing.txt
- - pip install wheel
 script: tox
 after_success:
  - codecov
@@ -19,7 +15,7 @@ deploy:
   provider: pypi
   user: sprockets
   on:
-    python: 3.6
+    python: 3.7
     tags: true
     all_branches: true
   password:
