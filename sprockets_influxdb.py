@@ -25,15 +25,10 @@ import time
 import uuid
 
 try:
-    from tornado import concurrent, httpclient, ioloop
+    from tornado import concurrent, httpclient, ioloop, routing
 except ImportError:  # pragma: no cover
     logging.critical('Could not import Tornado')
     concurrent, httpclient, ioloop = None, None, None
-
-try:
-    from tornado import routing
-except ImportError:  # Not needed for Tornado<4.5
-    pass
 
 
 version_info = (2, 2, 0)
@@ -107,10 +102,7 @@ class InfluxDBMixin(object):
                                     'method': request.method})
 
             pattern = None
-            if hasattr(application, 'handlers'):
-                pattern = self._get_path_pattern_tornado4()
-            else:
-                pattern = self._get_path_pattern_tornado45()
+            pattern = self._get_path_pattern_tornado()
             if pattern:
                 endpoint = pattern.rstrip('$')
             else:
@@ -118,19 +110,8 @@ class InfluxDBMixin(object):
                 endpoint = request.path
             self.influxdb.set_tags({'endpoint': endpoint})
 
-    def _get_path_pattern_tornado4(self):
-        """Return the path pattern used when routing a request. (Tornado<4.5)
-
-        :rtype: str
-        """
-        for host, handlers in self.application.handlers:
-            if host.match(self.request.host):
-                for handler in handlers:
-                    if handler.regex.match(self.request.path):
-                        return handler.regex.pattern
-
-    def _get_path_pattern_tornado45(self, router=None):
-        """Return the path pattern used when routing a request. (Tornado>=4.5)
+    def _get_path_pattern_tornado(self, router=None):
+        """Return the path pattern used when routing a request.
 
         :param tornado.routing.Router router: (Optional) The router to scan.
             Defaults to the application's router.
@@ -144,7 +125,7 @@ class InfluxDBMixin(object):
                 if isinstance(rule.matcher, routing.PathMatches):
                     return rule.matcher.regex.pattern
                 elif isinstance(rule.target, routing.Router):
-                    return self._get_path_pattern_tornado45(rule.target)
+                    return self._get_path_pattern_tornado(rule.target)
 
     def on_finish(self):
         if _enabled:
